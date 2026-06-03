@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards DCG UE5 — Mondialisation et croissance</title>
+    <style>
+        :root {
+            --color-background-primary: #ffffff;
+            --color-background-secondary: #f3f4f6;
+            --color-background-success: #e6f4ea;
+            --color-border-secondary: #e5e7eb;
+            --color-text-primary: #111827;
+            --color-text-secondary: #374151;
+            --color-text-tertiary: #9ca3af;
+            --border-radius-md: 8px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #fafafa;
+            color: var(--color-text-primary);
+            margin: 0;
+            padding: 0;
+        }
+
+        .fc-btn {
+            background: transparent;
+            border: 0.5px solid var(--color-border-secondary);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            padding: 9px 16px;
+            font-size: 13px;
+            color: var(--color-text-primary);
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: background .15s, border-color .15s;
+            user-select: none;
+        }
+        .fc-btn:hover { background: var(--color-background-secondary); }
+        .fc-btn:disabled { opacity: .3; cursor: not-allowed; }
+        .fc-btn.mastered { border-color: #3B6D11; color: #3B6D11; background: var(--color-background-success); font-weight: 500; }
+        
+        .fc-flip-hint {
+            font-size: 11px;
+            color: var(--color-text-tertiary);
+            letter-spacing: 1px;
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            text-transform: uppercase;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            border: 0;
+        }
+
+        /* Interface globale */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--color-border-secondary);
+            background: white;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .flashcard {
+            background: white;
+            border: 1px solid var(--color-border-secondary);
+            border-radius: 12px;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+            margin-bottom: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .flashcard:hover {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+        }
+        
+        .card-body {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .recto {
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            color: var(--color-text-primary);
+        }
+        .verso {
+            font-size: 14.5px;
+            line-height: 1.6;
+            text-align: left;
+            color: var(--color-text-secondary);
+            white-space: pre-line;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+        }
+        .progress-text {
+            font-size: 13px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+
+<h2 class="sr-only">Flashcards DCG UE5 — Mondialisation et croissance — 68 fiches</h2>
+
+<div id="root" style="padding:1.5rem 1rem;box-sizing:border-box;max-width:680px;margin:0 auto"></div>
+
+<script>
+const S = [
+{id:"intro",label:"Introduction",short:"Intro",col:"#7F77DD",cards:[
+{f:"Plan de la dissertation — structure",b:"I — La mondialisation, vecteur historique de croissance\n  I.A  Gains à l'échange et spécialisation : effets-offre déterminants\n  I.B  Intégration régionale européenne : mondialisation maîtrisée\n\nII — Des déséquilibres fragilisent la relation et imposent une refondation\n  II.A  Désindustrialisation, inégalités et dépendances stratégiques\n  II.B  Vers une mondialisation refondée : politiques industrielles, régionalisation, régulation"},
+{f:"Mondialisation — définition complète",b:"Processus d'intégration croissante des économies nationales via les flux de biens, services, capitaux, technologies et personnes.\n\n3 piliers :\n• Ouverture commerciale (baisse droits de douane — OMC)\n• Libéralisation financière (libre circulation des capitaux)\n• Révolution des transports et des TIC (compression des distances)"},
+{f:"Croissance économique — définition",b:"Augmentation durable et mesurable de la production nationale.\nMesurée par le taux de variation du PIB réel par habitant.\n\n⚠ Distinguer :\n• Croissance économique = dimension quantitative (PIB)\n• Développement économique = dimensions sociales et humaines incluses"},
+{f:"Économies développées — définition",b:"Pays à hauts revenus dotés d'un système productif industriel et tertiaire avancé.\nEssentiellement les membres de l'OCDE : États-Unis, UE, Japon, Canada, Royaume-Uni, Australie.\n\nCaractéristiques : productivité élevée, qualification élevée, coûts élevés → exposées à la concurrence des pays émergents."},
+{f:"David Ricardo (1817)",b:"Auteur des Principes de l'économie politique et de l'impôt (1817).\nFondateur de la loi des avantages comparatifs.\n\n→ Accroche de référence pour toute dissertation sur le libre-échange et la mondialisation."},
+{f:"Dani Rodrik — Hypermondialisation",b:"Économiste américain d'origine turque.\nCoïne le terme « hypermondialisation » pour la période 1990-2008.\n\nAutre apport majeur : Trilemme de la mondialisation (2011) :\n→ Impossible de combiner simultanément hypermondialisation + État-nation souverain + démocratie."},
+{f:"Commerce mondial — chiffres clés",b:"Pendant l'hypermondialisation (1990-2008) :\n→ Commerce mondial croissait 2× plus vite que le PIB mondial.\n\nDepuis la crise de 2008 :\n→ Commerce mondial : moins de 2 % par an.\n\nSignal clair du ralentissement de la mondialisation."},
+{f:"OMC — rôle et crise actuelle",b:"Organisation Mondiale du Commerce.\nCoordonne la baisse des droits de douane (1er pilier de l'ouverture commerciale).\n\n⚠ Crise institutionnelle : mécanisme de règlement des différends paralysé depuis 2019 (veto américain sur les nominations des juges).\n→ Affaiblit la gouvernance commerciale mondiale."},
+{f:"Réduction des dépendances stratégiques (UE)",b:"Doctrine actuelle de l'Union européenne.\nRéponse aux vulnérabilités révélées par : Covid-19, guerre en Ukraine, tensions USA-Chine.\n\n→ Illustre la reconfiguration en cours de la mondialisation.\n→ Sert de base factuelle pour la partie II de la dissertation."},
+{f:"Problématique — formulation exacte",b:"« Dans quelle mesure la mondialisation demeure-t-elle un facteur de croissance pour les économies développées, et à quelles conditions cette relation peut-elle être préservée face aux nouvelles tensions qui reconfigurent l'économie mondiale ? »\n\n→ Soullique que la mondialisation PEUT rester un facteur de croissance, mais sous conditions."}
+]},
+{id:"ia",label:"I.A — Gains à l'échange",short:"I · A",col:"#378ADD",cards:[
+{f:"Loi des avantages comparatifs — Ricardo (1817)",b:"Même un pays désavantagé dans TOUS les secteurs a intérêt à participer au commerce international.\n→ Il se spécialise dans l'activité où son DÉSAVANTAGE est le plus FAIBLE.\n\nConséquence : tous les pays gagnent à l'échange, même les moins productifs.\nC'est le fondement théorique du libre-échange."},
+{f:"Paul Krugman — Prix Nobel 2008",b:"Enrichit Ricardo : la mondialisation génère aussi des économies d'échelle et des rendements croissants.\n→ En accédant à des marchés plus larges, les firmes réduisent leurs coûts unitaires.\n→ Explique le commerce intra-branche (échanges de produits similaires entre pays riches).\n\nRendements croissants ≠ avantages comparatifs statiques de Ricardo."},
+{f:"Commerce intra-branche",b:"Échange de produits similaires entre pays développés.\nEx. : la France exporte ET importe des voitures avec l'Allemagne.\n\nExplication : économies d'échelle et différenciation des produits (Krugman), pas Ricardo.\nCaractérise la majorité des échanges entre économies avancées."},
+{f:"Économies d'échelle",b:"Plus on produit (pour un marché mondial élargi), plus le coût unitaire diminue.\n\nDeux effets :\n1. Réduction du coût de production unitaire\n2. Amélioration de la compétitivité-prix des entreprises\n\nArgument central de Krugman pour les gains dynamiques à l'échange."},
+{f:"Chaînes de valeur mondiales (CVM)",b:"Organisation internationale de la production :\nChaque pays intervient dans un segment spécifique (R&D, assemblage, distribution...).\n\nPays développés → segments à forte intensité de connaissance :\nConception · R&D · Ingénierie · Services financiers · Marketing\n\n→ Externalisation des tâches répétitives vers les pays à bas coûts salariaux."},
+{f:"Exemple Apple — illustration des CVM",b:"Produits conçus en Californie (R&D, marketing = forte valeur ajoutée).\nAssemblés en Chine (faible valeur ajoutée, main-d'œuvre bon marché).\n\n→ L'essentiel de la valeur ajoutée est capté par les activités intellectuelles localisées aux États-Unis.\n→ Illustration parfaite de la montée en gamme productive des économies développées."},
+{f:"Productivité globale des facteurs (PGF)",b:"Mesure l'efficacité globale dans l'utilisation des facteurs (capital + travail).\nC'est le résidu de Solow : part de la croissance non expliquée par l'accumulation de facteurs.\n\nDopée par l'intégration dans les CVM :\n→ Spécialisation dans les segments les plus productifs\n→ Diffusion des meilleures pratiques managériales."},
+{f:"Effet désinflationniste de la mondialisation",b:"Les importations de pays à bas coûts abaissent les prix à la consommation dans les pays développés.\n→ Gain de pouvoir d'achat réel pour les ménages.\n\nChiffre Banque mondiale : plusieurs centaines d'euros par an par ménage européen.\n→ Soutient la demande intérieure → soutient la croissance."},
+{f:"IDE entrants — rôle pour la croissance",b:"Investissements Directs Étrangers reçus par les économies développées.\n\nApports :\n• Capitaux additionnels\n• Technologies nouvelles\n• Pratiques managériales innovantes\n\n→ Renforcent la base productive des économies développées.\n→ Soutiennent la croissance du côté de l'offre."}
+]},
+{id:"ib",label:"I.B — Intégration européenne",short:"I · B",col:"#1D9E75",cards:[
+{f:"Marché unique européen (1992)",b:"Libre circulation des biens, services, capitaux et personnes au sein de l'UE.\nÉlimine les barrières non tarifaires et les coûts de transaction intra-européens.\n\n→ Restructure profondément les économies européennes.\n→ Stimule la concurrence et permet l'émergence de champions industriels continentaux."},
+{f:"Gains du marché unique — chiffre clé",b:"Selon la Commission européenne :\n→ +9 % du PIB européen (gains cumulés).\n\nGrâce à :\n• Stimulation de la concurrence\n• Baisse des coûts de transaction\n• Émergence de champions industriels européens capables de rivaliser mondialement."},
+{f:"UEM / Euro (1999)",b:"Union économique et monétaire — monnaie unique depuis 1999.\n\nEffets positifs :\n• Suppression du risque de change intra-zone euro\n• Facilite les échanges et flux d'investissement\n• Cadre institutionnel et réglementaire commun\n\n→ Forme de « mondialisation régulée » entre membres de la zone."},
+{f:"Zone monétaire optimale — Mundell (1961)",b:"Conditions pour qu'une intégration monétaire soit bénéfique (Robert Mundell, 1961) :\n1. Mobilité des facteurs de production (travail + capital)\n2. Flexibilité des prix et des salaires\n3. Mécanismes de transferts budgétaires entre membres\n\n→ Cadre pour évaluer si la zone euro est réellement optimale."},
+{f:"Robert Mundell",b:"Économiste canadien, Prix Nobel 1999.\nAuteur de la théorie de la Zone monétaire optimale (1961).\n\nThèse : une union monétaire est bénéfique seulement si les critères sont réunis (mobilité + flexibilité + transferts).\n→ À citer en I.B pour cadrer l'analyse de l'euro."},
+{f:"Croissance endogène — théorie",b:"Développée par Paul Romer et Robert Lucas (années 1980-90).\n\nThèse : les échanges internationaux amplifient les rendements croissants liés au capital humain et au progrès technique.\n→ Les gains à l'échange dépassent les gains statiques ricardiens.\n→ Externalités positives de long terme."},
+{f:"Paul Romer (Prix Nobel 2018)",b:"Co-auteur de la théorie de la croissance endogène.\nThèse : la R&D et le capital humain génèrent des externalités positives.\nL'ouverture internationale amplifie ces rendements en élargissant les marchés de la connaissance.\n\n→ L'échange international est un facteur de croissance de LONG terme."},
+{f:"Robert Lucas (Prix Nobel 1995)",b:"Co-auteur avec Romer de la croissance endogène.\nSouligne le rôle central du capital humain dans la croissance de long terme.\nL'ouverture internationale accélère la mobility et la diffusion du capital humain.\n\n→ Argument pour I.B sur les effets de long terme de la mondialisation."},
+{f:"Diffusion technologique via la mondialisation",b:"Mécanismes de transfert technologique :\n• IDE (entreprises étrangères implantées localement)\n• Partenariats industriels internationaux\n• Mobilité des chercheurs et ingénieurs\n\n→ Accélère l'innovation et la productivité dans les pays bénéficiaires.\n→ Mécanisme de rattrapage technologique entre économies développées."},
+{f:"Transition I → II (à maîtriser)",b:"Ainsi, la mondialisation a constitué un moteur puissant de croissance pour les économies développées, en générant des gains à l'échange, des économies d'échelle et une diffusion technologique favorable à la productivité.\n\nCependant, ces bénéfices agrégés masquent des effets de répartition inégaux et des vulnérabilités structurelles croissantes. La crise de 2008, la pandémie de 2020 et les tensions commerciales ont révélé que l'hypermondialisation porte en elle des déséquilibres qui fragilisent la dynamique de croissance durable."}
+]},
+{id:"iia",label:"II.A — Déséquilibres & coûts",short:"II · A",col:"#C93030",cards:[
+{f:"Désindustrialisation — définition & chiffres France",b:"Recul de la part de l'industrie dans le PIB des économies développées, dû aux délocalisations.\n\nFrance :\n• 22 % du PIB en 1980\n• 10 % du PIB en 2024\n→ Perte de 12 points en 40 ans.\n\nAllemagne maintient 20 % → écart révèle la faiblesse industrielle française."},
+{f:"Rust Belt (États-Unis)",b:"Région industrielle américaine (Michigan, Ohio, Pennsylvanie).\nFrappée par la désindustrialisation due aux délocalisations vers le Mexique et la Chine.\n\n→ Symbole de la dévastation économique et sociale des territoires industriels.\n→ Argument empirique incontournable sur les coûts humains de la mondialisation."},
+{f:"Polarisation du marché du travail",b:"Effet de la mondialisation sur la structure de l'emploi :\n\n✓ Emplois très qualifiés (ingénieurs, financiers, juristes) → prospèrent\n✗ Emplois intermédiaires → disparaissent\n   (concurrence internationale bas de gamme + automatisation milieu de gamme)\n\n→ Creusement des inégalités de revenus, instabilité politique."},
+{f:"Joseph Stiglitz (Prix Nobel 2001)",b:"Prix Nobel d'économie 2001.\nOuvrage clé : Le Prix de l'inégalité (2012).\n\nThèse : les inégalités creusées par la mondialisation réduisent la demande globale → freinent la croissance.\n\nMécanisme : les ménages pauvres ont une propension marginale à consommer (PMC) plus élevée que les riches."},
+{f:"Le Prix de l'inégalité (Stiglitz, 2012)",b:"Ouvrage majeur de Joseph Stiglitz.\n\nArgument central : l'accroissement des inégalités de revenus réduit la demande globale car les ménages pauvres ont une PMC plus élevée que les ménages riches.\n\n→ Les inégalités ne sont pas qu'un problème social :\nElles freinent la croissance économique elle-même."},
+{f:"Propension marginale à consommer (PMC)",b:"Part du revenu supplémentaire consacrée à la consommation (vs épargne).\n\nPMC des ménages pauvres > PMC des ménages riches.\n\nImplication Stiglitz : si la mondialisation transfère des revenus des travailleurs (forte PMC) vers les actionnaires (faible PMC), la consommation globale recule → frein à la demande et à la croissance."},
+{f:"Trilemme de la mondialisation — Rodrik (2011)",b:"Impossible de combiner SIMULTANÉMENT les trois :\n1. Hypermondialisation (intégration maximale)\n2. État-nation souverain (politiques économiques autonomes)\n3. Démocratie (réponse aux préférences des citoyens)\n\n→ L'une des trois dimensions doit céder.\nEx. UE : souveraineté des États réduite pour combiner mondialisation + démocratie."},
+{f:"Dépendances stratégiques",b:"Risques créés par une spécialisation internationale extrême.\nRévélées par le Covid-19 :\n• Masques (dépendance envers la Chine)\n• Principes actifs pharmaceutiques (Inde / Chine)\n• Semi-conducteurs (Taïwan / Corée du Sud)\n\n→ Conséquence de la logique « juste-à-temps » et « stocks zéro » à l'échelle mondiale."},
+{f:"Juste-à-temps / stocks zéro",b:"Méthode de gestion industrielle : produire exactement ce qui est demandé, sans stocks tampons.\n\nAvantage : réduction des coûts de stockage (efficace par temps calme).\nInconvénient : toute rupture se propage immédiatement dans toute la chaîne mondiale.\n\n→ Optimisé pour l'efficacité, catastrophique lors de chocs exogènes."},
+{f:"Inflation importée (2022) — chiffre",b:"8,5 % d'inflation en zone euro en 2022.\n\nCausée par :\n• Chocs d'offre post-Covid (ruptures d'approvisionnement)\n• Invasion de l'Ukraine (prix énergie + alimentation)"}
+]},
+{id:"iib",label:"II.B — Vers une mondialisation refondée",short:"II · B",col:"#D97706",cards:[
+{f:"Protectionnisme éducateur — Friedrich List (1841)",b:"Théorie économique légitimant la protection temporaire des industries naissantes.\n\nThèse : Un pays en retard de développement peut mettre des barrières douanières transitoires le temps que ses industries nationales acquièrent une taille critique et deviennent compétitives.\n→ 'Le protectionnisme est notre voie, le libre-échange est notre but'."},
+{f:"Inflation Reduction Act (IRA) — USA (2022)",b:"Plan américain massif de 369 milliards de dollars de subventions pour les technologies vertes.\nCondition sine qua non : les produits doivent être fabriqués ou assemblés en Amérique du Nord (critère 'Made in America').\n\n→ Marque le grand retour des politiques industrielles étatiques agressives aux dépens des pures règles du libre-échange de l'OMC."},
+{f:"Mécanisme d'Ajustement Carbone aux Frontières (MACF)",b:"Outil de l'UE entré en phase de test progressif (surnommé 'taxe carbone aux frontières').\n\nObjectif : Imposer un prix carbone aux importations (acier, ciment, aluminium) équivalent à celui payé par les producteurs européens.\n→ Évite les fuites de carbone et la concurrence déloyale tout en régulant la mondialisation."},
+{f:"Régionalisation des flux (Nearshoring / Friendshoring)",b:"Reconfiguration géopolitique des chaînes de valeur mondiales (CVM).\n\n• Nearshoring : Rapprocher la production géographique (ex: usines européennes au Maroc ou en Europe de l'Est).\n• Friendshoring : Limiter les chaînes d'approvisionnement aux pays alliés politiques (doctrine Janet Yellen aux USA).\n→ Objectif : Prioriser la résilience et la sécurité sur le coût minimal."},
+{f:"Politique de souveraineté industrielle européenne",b:"Changement de paradigme majeur au sein de l'UE face aux crises.\n\nExemples : Le 'EU Chips Act' visant à doubler la part de l'Europe dans la production mondiale de semi-conducteurs d'ici 2030.\n→ Passage d'une Europe purement commerciale et ouverte à une Europe protectrice de ses actifs stratégiques."}
+]}
+];
+
+// Moteur de rendu JS
+let currentCatIdx = 0;
+let currentCardIdx = 0;
+let isFlipped = false;
+const masteredCards = new Set();
+
+function init() {
+    render();
+}
+
+function render() {
+    const root = document.getElementById('root');
+    const cat = S[currentCatIdx];
+    const card = cat.cards[currentCardIdx];
+    const cardUid = `${cat.id}-${currentCardIdx}`;
+    const isMastered = masteredCards.has(cardUid);
+
+    root.innerHTML = `
+        <!-- Onglets des catégories -->
+        <div class="tabs">
+            ${S.map((item, idx) => `
+                <button class="tab-btn" style="${idx === currentCatIdx ? `background:${item.col};color:white;border-color:${item.col};` : 'color:var(--color-text-secondary);'}" onclick="changeCategory(${idx})">
+                    ${item.label}
+                </button>
+            `).join('')}
+        </div>
+
+        <!-- Flashcard -->
+        <div class="flashcard" onclick="toggleFlip()">
+            <div class="card-body">
+                ${!isFlipped 
+                    ? `<div class="recto">${card.f}</div>`
+                    : `<div class="verso">${card.b}</div>`
+                }
+            </div>
+            <div class="fc-flip-hint">${isFlipped ? 'Clique pour voir la question' : 'Clique pour retourner'}</div>
+        </div>
+
+        <!-- Boutons d'action et navigation -->
+        <div class="navigation">
+            <button class="fc-btn" onclick="prevCard()" ${currentCardIdx === 0 ? 'disabled' : ''}>← Précédent</button>
+            
+            <button class="fc-btn ${isMastered ? 'mastered' : ''}" onclick="toggleMastered(event, '${cardUid}')">
+                ${isMastered ? '✓ Maîtrisé' : 'Marquer comme maîtrisé'}
+            </button>
+            
+            <button class="fc-btn" onclick="nextCard()" ${currentCardIdx === cat.cards.length - 1 ? 'disabled' : ''}>Suivant →</button>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <span class="progress-text">Fiche ${currentCardIdx + 1} sur ${cat.cards.length} dans cette section</span>
+        </div>
+    `;
+}
+
+function toggleFlip() {
+    isFlipped = !isFlipped;
+    render();
+}
+
+function changeCategory(idx) {
+    currentCatIdx = idx;
+    currentCardIdx = 0;
+    isFlipped = false;
+    render();
+}
+
+function nextCard() {
+    if (currentCardIdx < S[currentCatIdx].cards.length - 1) {
+        currentCardIdx++;
+        isFlipped = false;
+        render();
+    }
+}
+
+function prevCard() {
+    if (currentCardIdx > 0) {
+        currentCardIdx--;
+        isFlipped = false;
+        render();
+    }
+}
+
+function toggleMastered(event, uid) {
+    event.stopPropagation(); // Évite de retourner la carte en cliquant sur le bouton
+    if (masteredCards.has(uid)) {
+        masteredCards.delete(uid);
+    } else {
+        masteredCards.add(uid);
+    }
+    render();
+}
+
+window.onload = init;
+</script>
+</body>
+</html>
