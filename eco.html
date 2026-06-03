@@ -154,7 +154,7 @@ const S = [
 {f:"Commerce mondial — chiffres clés",b:"Pendant l'hypermondialisation (1990-2008) :\n→ Commerce mondial croissait 2× plus vite que le PIB mondial.\n\nDepuis la crise de 2008 :\n→ Commerce mondial : moins de 2 % par an.\n\nSignal clair du ralentissement de la mondialisation."},
 {f:"OMC — rôle et crise actuelle",b:"Organisation Mondiale du Commerce.\nCoordonne la baisse des droits de douane (1er pilier de l'ouverture commerciale).\n\n⚠ Crise institutionnelle : mécanisme de règlement des différends paralysé depuis 2019 (veto américain sur les nominations des juges).\n→ Affaiblit la gouvernance commerciale mondiale."},
 {f:"Réduction des dépendances stratégiques (UE)",b:"Doctrine actuelle de l'Union européenne.\nRéponse aux vulnérabilités révélées par : Covid-19, guerre en Ukraine, tensions USA-Chine.\n\n→ Illustre la reconfiguration en cours de la mondialisation.\n→ Sert de base factuelle pour la partie II de la dissertation."},
-{f:"Problématique — formulation exacte",b:"« Dans quelle mesure la mondialisation demeure-t-elle un facteur de croissance pour les économies développées, et à quelles conditions cette relation peut-elle être préservée face aux nouvelles tensions qui reconfigurent l'économie mondiale ? »\n\n→ Soullique que la mondialisation PEUT rester un facteur de croissance, mais sous conditions."}
+{f:"Problématique — formulation exacte",b:"« Dans quelle mesure la mondialisation demeure-t-elle un facteur de croissance pour les économies développées, et à quelles conditions cette relation peut-elle être préservée face aux nouvelles tensions qui reconfigurent l'économie mondiale ? »\n\n→ Souligne que la mondialisation PEUT rester un facteur de croissance, mais sous conditions."}
 ]},
 {id:"ia",label:"I.A — Gains à l'échange",short:"I · A",col:"#378ADD",cards:[
 {f:"Loi des avantages comparatifs — Ricardo (1817)",b:"Même un pays désavantagé dans TOUS les secteurs a intérêt à participer au commerce international.\n→ Il se spécialise dans l'activité où son DÉSAVANTAGE est le plus FAIBLE.\n\nConséquence : tous les pays gagnent à l'échange, même les moins productifs.\nC'est le fondement théorique du libre-échange."},
@@ -175,7 +175,7 @@ const S = [
 {f:"Robert Mundell",b:"Économiste canadien, Prix Nobel 1999.\nAuteur de la théorie de la Zone monétaire optimale (1961).\n\nThèse : une union monétaire est bénéfique seulement si les critères sont réunis (mobilité + flexibilité + transferts).\n→ À citer en I.B pour cadrer l'analyse de l'euro."},
 {f:"Croissance endogène — théorie",b:"Développée par Paul Romer et Robert Lucas (années 1980-90).\n\nThèse : les échanges internationaux amplifient les rendements croissants liés au capital humain et au progrès technique.\n→ Les gains à l'échange dépassent les gains statiques ricardiens.\n→ Externalités positives de long terme."},
 {f:"Paul Romer (Prix Nobel 2018)",b:"Co-auteur de la théorie de la croissance endogène.\nThèse : la R&D et le capital humain génèrent des externalités positives.\nL'ouverture internationale amplifie ces rendements en élargissant les marchés de la connaissance.\n\n→ L'échange international est un facteur de croissance de LONG terme."},
-{f:"Robert Lucas (Prix Nobel 1995)",b:"Co-auteur avec Romer de la croissance endogène.\nSouligne le rôle central du capital humain dans la croissance de long terme.\nL'ouverture internationale accélère la mobility et la diffusion du capital humain.\n\n→ Argument pour I.B sur les effets de long terme de la mondialisation."},
+{f:"Robert Lucas (Prix Nobel 1995)",b:"Co-auteur avec Romer de la croissance endogène.\nSouligne le rôle central du capital humain dans la croissance de long terme.\nL'ouverture internationale accélère la mobilité et la diffusion du capital humain.\n\n→ Argument pour I.B sur les effets de long terme de la mondialisation."},
 {f:"Diffusion technologique via la mondialisation",b:"Mécanismes de transfert technologique :\n• IDE (entreprises étrangères implantées localement)\n• Partenariats industriels internationaux\n• Mobilité des chercheurs et ingénieurs\n\n→ Accélère l'innovation et la productivité dans les pays bénéficiaires.\n→ Mécanisme de rattrapage technologique entre économies développées."},
 {f:"Transition I → II (à maîtriser)",b:"Ainsi, la mondialisation a constitué un moteur puissant de croissance pour les économies développées, en générant des gains à l'échange, des économies d'échelle et une diffusion technologique favorable à la productivité.\n\nCependant, ces bénéfices agrégés masquent des effets de répartition inégaux et des vulnérabilités structurelles croissantes. La crise de 2008, la pandémie de 2020 et les tensions commerciales ont révélé que l'hypermondialisation porte en elle des déséquilibres qui fragilisent la dynamique de croissance durable."}
 ]},
@@ -200,7 +200,6 @@ const S = [
 ]}
 ];
 
-// Moteur de rendu JS
 let currentCatIdx = 0;
 let currentCardIdx = 0;
 let isFlipped = false;
@@ -218,7 +217,6 @@ function render() {
     const isMastered = masteredCards.has(cardUid);
 
     root.innerHTML = `
-        <!-- Onglets des catégories -->
         <div class="tabs">
             ${S.map((item, idx) => `
                 <button class="tab-btn" style="${idx === currentCatIdx ? `background:${item.col};color:white;border-color:${item.col};` : 'color:var(--color-text-secondary);'}" onclick="changeCategory(${idx})">
@@ -227,7 +225,6 @@ function render() {
             `).join('')}
         </div>
 
-        <!-- Flashcard -->
         <div class="flashcard" onclick="toggleFlip()">
             <div class="card-body">
                 ${!isFlipped 
@@ -238,7 +235,6 @@ function render() {
             <div class="fc-flip-hint">${isFlipped ? 'Clique pour voir la question' : 'Clique pour retourner'}</div>
         </div>
 
-        <!-- Boutons d'action et navigation -->
         <div class="navigation">
             <button class="fc-btn" onclick="prevCard()" ${currentCardIdx === 0 ? 'disabled' : ''}>← Précédent</button>
             
@@ -284,7 +280,7 @@ function prevCard() {
 }
 
 function toggleMastered(event, uid) {
-    event.stopPropagation(); // Évite de retourner la carte en cliquant sur le bouton
+    event.stopPropagation();
     if (masteredCards.has(uid)) {
         masteredCards.delete(uid);
     } else {
@@ -293,7 +289,8 @@ function toggleMastered(event, uid) {
     render();
 }
 
-window.onload = init;
+// Initialisation immédiate du script
+init();
 </script>
 </body>
 </html>
